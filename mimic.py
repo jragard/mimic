@@ -20,6 +20,8 @@ duplicates. So for example the key "and" might have the list
 all the words which came after "and" in the text.
 We'll say that the empty string is what comes before
 the first word in the file.
+
+
 With the mimic dict, it's fairly easy to emit random
 text that mimics the original. Print a word, then look
 up what words might come next and pick one at random as
@@ -82,8 +84,19 @@ def mimic_dict(filename):
 
 def print_mimic(mimic_dict, word):
   """Given mimic dict and start word, prints 200 random words."""
+
+  s = ''
+  s += word
+  s += ' ' + random.choice(mimic_dict[word]) 
+  for i in range(200):
+    split = s.split()
+    s += ' ' + random.choice(mimic_dict[split[-1]])
+
+  print s
+  
+
   # +++your code here+++
-  return
+
 
 
 # Provided main(), calls mimic_dict() and mimic()
@@ -93,7 +106,7 @@ def main():
     sys.exit(1)
 
   dict = mimic_dict(sys.argv[1])
-  print_mimic(dict, '')
+  print_mimic(dict, 'and')
 
 
 if __name__ == '__main__':
